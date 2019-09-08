@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Calendar Page</title>
+  <!-- <meta http-equiv="refresh" content="1; url=javascript03.html"> -->
+  <style>
+	td.sun{
+		background-color: #FFDDDD;
+		color: red;
+	}
+	td.sat{
+		background-color: #DDDDFF;
+		color: blue;
+	}
+	td.blankday{
+		background-color: white;
+	}
+  </style>
+  <script>
+	var year = window.prompt("Please enter a year", 2018);
+	year = parseInt(year, 10);
+	var month = window.prompt("Please enter a month", 1);
+	month = parseInt(month, 10) - 1;
+	var calendar = new Date(year,month,1);
+	switch (calendar.getDay()) {
+    		case 0: start_day = "Sunday"; break;
+    		case 1: start_day = "Monday"; break;
+    		case 2: start_day = "Tuesday"; break;
+    		case 3: start_day = "Wednesday"; break;
+    		case 4: start_day = "Thursday"; break;
+    		case 5: start_day = "Friday"; break;
+    		case 6: start_day = "Saturday";
+	}
+	alert((calendar.getMonth()+1) + "/1 started on a " + start_day + ".");
+  </script>
+</head>
+ 
+<body>
+ <table width="80%" height="80%" border=1 bordercolor="green">
+	<col>
+	<col>
+	<col>
+	<col>
+	<col>
+	<col>
+	<col>
+	<tr>
+		<th colspan=7 bgcolor=white>
+			<script>
+				document.write("Calendar: "+year+"/"+(month+1));
+			</script>
+		</th>
+	</tr>
+	<tr>
+		<th style="color: red;"> Sun </th>
+		<th> Mon </th>
+		<th> Tue </th>
+		<th> Wed </th>
+		<th> Thu </th>
+		<th> Fri </th>
+		<th style="color: blue;"> Sat </th>
+	</tr>
+	<script>
+		var col = 7;
+		var row = 6;
+		var start_day_num = calendar.getDay();
+		var date = 1 - start_day_num;
+		switch(month+1){
+			case 1:case 3:case 5:case 7:case 8:case 10:case 12: lastDate = 31; break;
+			case 4: case 6: case 9: case 11: lastDate = 30; break;
+			case 2: if (year%400 == 100 || year%400 == 200 || year%400 == 300 || year%4 != 0)
+			{lastDate = 28;}
+			else {lastDate = 29};
+		}
+		for(i=0; i<row; i++){
+			document.write("<tr height = 70>");
+			for(j=0; j<col; j++, date++){
+				if (date > lastDate || date<1) document.write("<td class='blankday'> &nbsp </td>");
+				else if (j==0) document.write("<td class='sun'>" + date + "</td>");
+				else if (j==6) document.write("<td class='sat'>" + date + "</td>");
+				else document.write("<td>" + date + "</td>");
+			}
+			document.write("</tr>");
+
+		}
+	</script>
+ </table>
+ 
+ </body>
+</html>
